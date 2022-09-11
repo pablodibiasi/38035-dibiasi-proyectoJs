@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 
   <head>
+    
     <html lang="es"></html>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="" href="" />
     <meta name="keywords" content="" />
     <meta name="description" content="" />
     <meta name="author" content="" />
@@ -28,7 +30,7 @@
       <nav class="navbar navbar-expand-lg text-bg-primary">
         <div class="container-fluid">
           
-          <a class="navbar-brand" href="./index.html">Reina Victoria</a>
+          <a class="navbar-brand" href="./index.html">REINA VICTORIA</a>
          
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -48,20 +50,28 @@
 
     <!--fin nabvar -->
    <main>
-    <h3 id="saludo"></h3>
+   <section class="bienvenida">
+   <h5>¿Cual es tu nombre?</h5> 
+    <input  id="nombre"  type="text">
+   
+    <h2 id="saludo"></h2>
+  </section>
+  
     <section class="logo">
  <img  src="./imagenes/reinaVictoria.jpeg" alt="">
   </section>
-   <section>
+
+
+   <section id="prod">
     <h2 class="titulo_productos">Artesanias en crochet</h2>
-    <div class="productos">
+    <div  class="productos">
       <div class="row">
         <div class="col-xs-10 col-sm-6 col-md-4 product">
           <div class="card">
             <img src="./imagenes/ESTRELLAS.jpeg" alt="">
             <h3>Estrellas</h3>
             <p>1000 pesos</p>
-            <button class="btnProd">agregar al carrito</button>
+            <button id="btnEstrellas" class="btnProd">agregar al carrito</button>
           </div>
         </div>
       
@@ -69,8 +79,8 @@
         <div class="card">
           <img src="./imagenes/ANGELITOS.jpeg" alt="">
           <h3>Angelitos</h3>
-          <p>1000 pesos</p>
-          <button class="btnProd">agregar al carrito</button>
+          <p>1500 pesos</p>
+          <button id="btnAngelitos"  class="btnProd">agregar al carrito</button>
         </div>
       </div>
        
@@ -78,8 +88,8 @@
           <div class="card">
         <img src="./imagenes/PESEBRE.jpeg" alt="">
         <h3>Pesebre</h3>
-        <p>1000 pesos</p>
-        <button class="btnProd">agregar al carrito</button>
+        <p>2000 pesos</p>
+        <button id="btnPesebre" class="btnProd">agregar al carrito</button>
       </div>
       </div>
     
@@ -87,48 +97,48 @@
         <div class="card">
       <img src="./imagenes/ANGELITA.jpeg" alt="">
       <h3>Angelita</h3>
-      <p>1000 pesos</p>
-      <button class="btnProd">agregar al carrito</button>
+      <p>2500 pesos</p>
+      <button id="btnAngelita" class="btnProd">agregar al carrito</button>
     </div>
     </div>
     <div class="col-xs-10 col-sm-6 col-md-4 product">
       <div class="card">
     <img src="./imagenes/ESTRELLA.jpeg" alt="">
     <h3>Estrellita</h3>
-    <p>1000 pesos</p>
-    <button class="btnProd">agregar al carrito</button>
+    <p>3000 pesos</p>
+    <button id="btnEstrellita" class="btnProd">agregar al carrito</button>
   </div>
   </div>
   <div class="col-xs-10 col-sm-6 col-md-4 product">
     <div class="card">
   <img src="./imagenes/TOALLAAQUA.jpeg" alt="">
-  <h3>Toalla turquesa</h3>
-  <p>1000 pesos</p>
-  <button class="btnProd">agregar al carrito</button>
+  <h3>Toalla Aqua</h3>
+  <p>3500 pesos</p>
+  <button  id="btnToallaAqua" class="btnProd">agregar al carrito</button>
 </div>
 </div>
 <div class="col-xs-10 col-sm-6 col-md-4 product">
   <div class="card">
 <img src="./imagenes/TOALLACRUDO.jpeg" alt="">
 <h3>Toalla Crudo</h3>
-<p>1000 pesos</p>
-<button class="btnProd">agregar al carrito</button>
+<p>4000 pesos</p>
+<button id="btnToallaCrudo" class="btnProd">agregar al carrito</button>
 </div>
 </div>
 <div class="col-xs-10 col-sm-6 col-md-4 product">
   <div class="card">
 <img src="./imagenes/TOALLADEMANO.jpeg" alt="">
 <h3>Toalla de mano</h3>
-<p>1000 pesos</p>
-<button class="btnProd">agregar al carrito</button>
+<p>4500 pesos</p>
+<button id="btnToallaMano" class="btnProd">agregar al carrito</button>
 </div>
 </div>
 <div class="col-xs-10 col-sm-6 col-md-4 product">
   <div class="card">
 <img src="./imagenes/TOALLANEGRA.jpeg" alt="">
 <h3>Toalla negra</h3>
-<p>1000pesos</p>
-<button class="btnProd">agregar al carrito</button>
+<p>5000 pesos</p>
+<button id="btnToallaNegra" class="btnProd">agregar al carrito</button>
 </div>
 </div>
       </div>
@@ -136,7 +146,18 @@
     </div>
 
    </section>
+
+
+  <section id="carritoCompras">
+    <div class="row justify-content-center ">
+    <div class="col-auto" id="contenedor">
+  <h3>tu carrito contiene:</h3>
+   
+    </div>
+  </div>
+   
   
+  </section>
   </main>
 
   <footer class="mt-5">
@@ -177,3 +198,7 @@
  <script src="./javascript/main.js"></script>
   </body>
 </html> 
+
+
+
+

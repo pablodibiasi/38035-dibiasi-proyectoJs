@@ -4,7 +4,15 @@
   box-sizing: border-box;
 }
 body {
-  background-color: lightskyblue;
+  background-color: rgb(75, 195, 107);
+}
+.bienvenida {
+  margin: 10px;
+}
+#nombre {
+  border-radius: 3px;
+  background-color: rgb(160, 239, 181);
+  margin-left: 10px;
 }
 .logo {
   margin: 50px 10px;
@@ -12,9 +20,10 @@ body {
 }
 .logo img {
   border-radius: 10px;
+  width: 40%;
 }
 .titulo_productos {
-  color: brown;
+  color: rgb(218, 85, 85);
   text-align: center;
   font-size: 3rem;
   font-weight: bold;
@@ -46,11 +55,14 @@ body {
   object-fit: contain;
   border-radius: 0.5rem;
 }
+.card p {
+  color: crimson;
+}
 .btnProd {
   text-align: center;
   border-radius: 5px;
   width: 150px;
-  background-color: rgb(48, 115, 240);
+  background-color: #1c8424;
   color: antiquewhite;
   margin: 5px;
   box-shadow: 0 5px 3px rgba(0, 0, 0, 0.3);
@@ -58,4 +70,38 @@ body {
 }
 #saludo {
   text-align: center;
+}
+.carritoCompras {
+  display: flex;
+  justify-content: start;
+}
+#contenedor {
+  background-color: aqua;
+  margin: 30px;
+  border: 4px solid rgb(7, 87, 15);
+  width: 300px;
+  text-align: center;
+  border-radius: 10px;
+}
+#contenedor p {
+  font-weight: bold;
+}
+.btnFinal {
+  text-align: center;
+  border-radius: 5px;
+  width: 150px;
+  background-color: #2a54c8;
+  color: antiquewhite;
+  margin: 5px;
+  box-shadow: 0 5px 3px rgba(0, 0, 0, 0.3);
+  border-color: aliceblue;
+}
+.saludoFinal {
+  color: rgb(255, 94, 0);
+  font-weight: bold;
+}
+.pedido {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: darkslateblue;
 }
