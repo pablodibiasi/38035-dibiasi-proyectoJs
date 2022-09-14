@@ -5,6 +5,8 @@
 }
 body {
   background-color: rgb(75, 195, 107);
+  /* font-family: 'Permanent Marker', cursive; */
+  font-family: 'Atma', cursive;
 }
 
 .bienvenida {
