@@ -1,12 +1,54 @@
+//registro de ususario/storage
+
+const btn = document.getElementById('btnRegistro'),
+  checkbox = document.getElementById('checkbox'),
+  email = document.getElementById('email'),
+  password = document.getElementById('password'),
+  p = document.querySelector('.mensaje'),
+  visitante = document.getElementById('nombre')
+btn.value = 'Registrar'
+
+function guardar(valor) {
+  let usuario = {
+    username: email.value,
+    password: password.value,
+    nombre: visitante.value,
+  }
+
+  if (valor === 'sessionStorage') {
+    sessionStorage.setItem('usuario', JSON.stringify(usuario))
+  }
+  if (valor === 'localStorage') {
+    localStorage.setItem('usuario', JSON.stringify(usuario))
+  }
+  return usuario
+}
+
+function recuperarDatos(datos) {
+  if (datos) {
+    nombre.value = datos.nombre
+    email.value = datos.username
+    password.value = datos.password
+  }
+}
+
+recuperarDatos(JSON.parse(localStorage.getItem('usuario')))
+
+btn.addEventListener('click', (e) => {
+  e.preventDefault()
+  if (checkbox.checked) {
+    guardar('localStorage')
+  } else {
+    guardar('sessionStorage')
+  }
+})
+
 //saludo personalizado
 
-let visitante = document.getElementById('nombre')
 visitante.onchange = () => {
   saludo.innerText =
     'Bienvenido/a ' + visitante.value.toUpperCase() + ' a Reina Victoria'
 }
-//prueba boton
-
 //productos en venta
 const productos = [
   { id: 1, nombre: 'Estrellas', precio: 1000, img: 'ESTRELLAS.jpeg' },
@@ -20,89 +62,85 @@ const productos = [
   { id: 9, nombre: 'Toalla negra', precio: 5000, img: 'TOALLANEGRA.jpeg' },
 ]
 console.log(productos)
+const containerDiv = document.querySelector('.container')
+const carritoDiv = document.querySelector('.carrito')
 
-//CARRITO CON addEvent
+//traer elementos del carrito de localstorage o un array vacio
+let carrito = JSON.parse(localStorage.getItem('carrito')) || []
 
-const texto = document.createElement('p')
-const contenedor = document.getElementById('contenedor')
-let carrito = []
-
-let botonEstrella = document.getElementById('btnEstrellas')
-botonEstrella.addEventListener('click', rtaClick1)
-function rtaClick1() {
-  carrito.push(productos[0])
-  texto.innerText = productos[0].nombre + ': $ ' + productos[0].precio
-  contenedor.append(texto)
-}
-
-let botonAngelitos = document.getElementById('btnAngelitos')
-botonAngelitos.addEventListener('click', rtaClick2)
-function rtaClick2() {
-  carrito.push(productos[1])
-  const texto1 = document.createElement('p')
-  texto1.innerText = productos[1].nombre + ': $ ' + productos[1].precio
-  contenedor.append(texto1)
+function crearCards() {
+  productos.forEach((element) => {
+    containerDiv.innerHTML += `<div class="card" >
+ 
+        <h4>${element.nombre}</h4>
+        <img src="../imagenes/${element.img} " alt="">
+        <p>$${element.precio}</p>
+        <button class= "btnProd" id="btn-agregar${element.id}">Agregar</button>
+     </div>`
+  })
+  FuncionBoton()
 }
 
-let botonPesebre = document.getElementById('btnPesebre')
-botonPesebre.addEventListener('click', rtaClick3)
-function rtaClick3() {
-  carrito.push(productos[2])
-  const texto2 = document.createElement('p')
-  texto2.innerText = productos[2].nombre + ': $ ' + productos[2].precio
-  contenedor.append(texto2)
+function FuncionBoton() {
+  productos.forEach((producto) => {
+    document
+      .querySelector(`#btn-agregar${producto.id}`)
+      .addEventListener('click', () => {
+        agregarAlCarrito(producto)
+      })
+  })
 }
 
-let botonAngelita = document.getElementById('btnAngelita')
-botonAngelita.addEventListener('click', rtaClick4)
-function rtaClick4() {
-  carrito.push(productos[3])
-  const texto3 = document.createElement('p')
-  texto3.innerText = productos[3].nombre + ': $ ' + productos[3].precio
-  contenedor.append(texto3)
+function agregarAlCarrito(producto) {
+  let existe = carrito.some((prod) => prod.id === producto.id)
+  if (existe === false) {
+    producto.cantidad = 1
+    carrito.push(producto)
+  } else {
+    let prodFind = carrito.find((prod) => prod.id === producto.id)
+    prodFind.cantidad++
+  }
+  console.log(carrito)
+  crearCarritoCard()
 }
-let botonEstrellita = document.getElementById('btnEstrellita')
-botonEstrellita.addEventListener('click', rtaClick5)
-function rtaClick5() {
-  carrito.push(productos[4])
-  const texto4 = document.createElement('p')
-  texto4.innerText = productos[4].nombre + ': $ ' + productos[4].precio
-  contenedor.append(texto4)
-}
-let botonToallaAqua = document.getElementById('btnToallaAqua')
-botonToallaAqua.addEventListener('click', rtaClick6)
-function rtaClick6() {
-  carrito.push(productos[5])
-  const texto5 = document.createElement('p')
-  texto5.innerText = productos[5].nombre + ': $ ' + productos[5].precio
-  contenedor.append(texto5)
-}
-let botonToallaCrudo = document.getElementById('btnToallaCrudo')
-botonToallaCrudo.addEventListener('click', rtaClick7)
-function rtaClick7() {
-  carrito.push(productos[6])
-  const texto6 = document.createElement('p')
-  texto6.innerText = productos[6].nombre + ': $ ' + productos[6].precio
-  contenedor.append(texto6)
-}
-let botonToallaMano = document.getElementById('btnToallaMano')
-botonToallaMano.addEventListener('click', rtaClick8)
-function rtaClick8() {
-  carrito.push(productos[7])
-  const texto7 = document.createElement('p')
-  texto7.innerText = productos[7].nombre + ': $ ' + productos[7].precio
-  contenedor.append(texto7)
+console.log(carrito)
+
+function crearCarritoCard() {
+  carritoDiv.innerHTML = ''
+  carrito.forEach((prod) => {
+    let valorSuma = `${prod.precio * prod.cantidad}`
+    carritoDiv.innerHTML += `<div >
+    <div class="card" >
+        <h4>${prod.nombre}</h4>
+        <img src="../imagenes/${prod.img} " class="carritoImg" alt="">
+        <h5>CANTIDAD: ${prod.cantidad}</h5>
+        <p>$ ${valorSuma}</p>
+        <button class="btnCarrito"  id="btn-borrar${prod.id}">Quitar</button>
+    
+     </div>
+        </div>`
+  })
+
+  //agregar a storage
+  localStorage.setItem('carrito', JSON.stringify(carrito))
+
+  borrarProducto()
 }
 
-let botonToallaNegra = document.getElementById('btnToallaNegra')
-botonToallaNegra.addEventListener('click', rtaClick9)
-function rtaClick9() {
-  carrito.push(productos[8])
-  const texto8 = document.createElement('p')
-  texto8.innerText = productos[8].nombre + ': $ ' + productos[8].precio
-  contenedor.append(texto8)
+function borrarProducto() {
+  carrito.forEach((producto) => {
+    document
+      .querySelector(`#btn-borrar${producto.id}`)
+      .addEventListener('click', () => {
+        let indice = carrito.findIndex((element) => element.id === producto.id)
+        carrito.splice(indice, 1)
+        crearCarritoCard()
+      })
+  })
 }
 
+crearCarritoCard()
+crearCards()
 console.log(carrito)
 
 const botonFinal = document.createElement('button')
@@ -125,6 +163,7 @@ function finalizarCompra() {
 // }
 
 // console.log(precios)
+
 // function calculoCuota(valorProducto, cantidadCuotas) {
 //   if (isNaN(valorProducto) || isNaN(cantidadCuotas)) {
 //     alert('solo se aceptan numeros.')

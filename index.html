@@ -49,11 +49,36 @@
     </header>
 
     <!--fin nabvar -->
-   <main>
+   <main class="main">
+    <div class="card">
+      <form action="">
+        <div class="box">
+          <label for="nombre"> Nombre</label>
+          <input  id="nombre"  type="text">
+
+          <label for="email">Email</label>
+          <input type="email" name="email" id="email" />
+        </div>
+        <div class="box">
+          <label for="email">Contraseña</label>
+          <input type="password" name="password" id="password" />
+        </div>
+        <div class="box">
+          
+        </div>
+  
+        <label for="checkbox"
+        >Recordar
+        <input type="checkbox" id="checkbox" />
+      </label>
+        <input type="submit" id="btnRegistro" />
+      </form>
+    
+    </div>
+
+
    <section class="bienvenida">
-   <h5>¿Cual es tu nombre?</h5> 
-    <input  id="nombre"  type="text">
-   
+ 
     <h2 id="saludo"></h2>
   </section>
   
@@ -64,18 +89,26 @@
 
    <section id="prod">
     <h2 class="titulo_productos">Artesanias en crochet</h2>
-    <div  class="productos">
-      <div class="row">
-        <div class="col-xs-10 col-sm-6 col-md-4 product">
+    <div class="container" >
+
+    
+    </div>
+
+    <!--     
+      <div  class="productos"> -->
+        <!-- <div class="row"> -->
+    
+
+        <!-- <div class="col-xs-10 col-sm-6 col-md-4 product">
           <div class="card">
             <img src="./imagenes/ESTRELLAS.jpeg" alt="">
             <h3>Estrellas</h3>
             <p>1000 pesos</p>
             <button id="btnEstrellas" class="btnProd">agregar al carrito</button>
           </div>
-        </div>
+        </div> -->
       
-      <div class="col-xs-10 col-sm-6 col-md-4 product">
+      <!-- <div class="col-xs-10 col-sm-6 col-md-4 product">
         <div class="card">
           <img src="./imagenes/ANGELITOS.jpeg" alt="">
           <h3>Angelitos</h3>
@@ -143,19 +176,21 @@
 </div>
       </div>
   
-    </div>
-
+    </div> -->
+</div>
    </section>
+<!-- fin -->
 
+ <section id="carritoCompras">
 
-  <section id="carritoCompras">
-    <div class="row justify-content-center ">
-    <div class="col-auto" id="contenedor">
-  <h3>tu carrito contiene:</h3>
+    <div id="contenedor">
+
+  <h3 class="tituloCarrito">En tu carrito de compras :</h3>
+      <div class="carrito "></div>
    
     </div>
   </div>
-   
+    
   
   </section>
   </main>
