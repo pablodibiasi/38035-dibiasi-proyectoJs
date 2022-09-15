@@ -75,7 +75,7 @@ function crearCards() {
         <h4>${element.nombre}</h4>
         <img src="../imagenes/${element.img} " alt="">
         <p>$${element.precio}</p>
-        <button class= "btnProd" id="btn-agregar${element.id}">Agregar</button>
+        <button class= "btnProd" id="btn-agregar${element.id}">Agregar al carrito</button>
      </div>`
   })
   FuncionBoton()
@@ -120,7 +120,8 @@ function crearCarritoCard() {
      </div>
         </div>`
   })
-
+  let total = carrito.reduce((acc, el) => acc + el.precio * el.cantidad, 0)
+  console.log(total)
   //agregar a storage
   localStorage.setItem('carrito', JSON.stringify(carrito))
 
