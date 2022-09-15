@@ -120,8 +120,12 @@ function crearCarritoCard() {
      </div>
         </div>`
   })
+
+  // aca saco el total e precio del carrito
+
   let total = carrito.reduce((acc, el) => acc + el.precio * el.cantidad, 0)
   console.log(total)
+
   //agregar a storage
   localStorage.setItem('carrito', JSON.stringify(carrito))
 
