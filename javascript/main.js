@@ -61,13 +61,16 @@ const productos = [
   { id: 8, nombre: 'Toalla de mano', precio: 4500, img: 'TOALLADEMANO.jpeg' },
   { id: 9, nombre: 'Toalla negra', precio: 5000, img: 'TOALLANEGRA.jpeg' },
 ]
-console.log(productos)
+// console.log(productos)
+
 const containerDiv = document.querySelector('.container')
 const carritoDiv = document.querySelector('.carrito')
 
-//traer elementos del carrito de localstorage o un array vacio
+//traer elementos del carrito de localstorage si los hubiera o creo un array vacio
 let carrito = JSON.parse(localStorage.getItem('carrito')) || []
 
+//creo tarjetas de los productos
+crearCards()
 function crearCards() {
   productos.forEach((element) => {
     containerDiv.innerHTML += `<div class="card" >
@@ -78,6 +81,7 @@ function crearCards() {
         <button class= "btnProd" id="btn-agregar${element.id}">Agregar al carrito</button>
      </div>`
   })
+
   FuncionBoton()
 }
 
@@ -91,6 +95,8 @@ function FuncionBoton() {
   })
 }
 
+// funcion agregar al carrito
+
 function agregarAlCarrito(producto) {
   let existe = carrito.some((prod) => prod.id === producto.id)
   if (existe === false) {
@@ -100,16 +106,20 @@ function agregarAlCarrito(producto) {
     let prodFind = carrito.find((prod) => prod.id === producto.id)
     prodFind.cantidad++
   }
-  console.log(carrito)
+
   crearCarritoCard()
 }
 console.log(carrito)
 
+// funcion crear carrito
+
 function crearCarritoCard() {
   carritoDiv.innerHTML = ''
+
   carrito.forEach((prod) => {
     let valorSuma = `${prod.precio * prod.cantidad}`
-    carritoDiv.innerHTML += `<div >
+
+    carritoDiv.innerHTML += `
     <div class="card" >
         <h4>${prod.nombre}</h4>
         <img src="../imagenes/${prod.img} " class="carritoImg" alt="">
@@ -117,20 +127,22 @@ function crearCarritoCard() {
         <p>$ ${valorSuma}</p>
         <button class="btnCarrito"  id="btn-borrar${prod.id}">Quitar</button>
     
-     </div>
+     
         </div>`
   })
 
-  // aca saco el total e precio del carrito
-
+  // aca saco el total e precio del carrito con metodo .reduce
   let total = carrito.reduce((acc, el) => acc + el.precio * el.cantidad, 0)
   console.log(total)
-
   //agregar a storage
   localStorage.setItem('carrito', JSON.stringify(carrito))
-
+  localStorage.setItem('total', JSON.stringify(total))
   borrarProducto()
 }
+
+// termina funcion crearCarrito
+
+// funcion borrar producto
 
 function borrarProducto() {
   carrito.forEach((producto) => {
@@ -145,105 +157,78 @@ function borrarProducto() {
 }
 
 crearCarritoCard()
-crearCards()
-console.log(carrito)
 
 const botonFinal = document.createElement('button')
-botonFinal.innerText = 'Finalizar compra'
+botonFinal.innerText = 'Ir a formas de pago'
 botonFinal.classList.add('btnFinal')
 contenedor.append(botonFinal)
 
 botonFinal.addEventListener('click', finalizarCompra)
 
 function finalizarCompra() {
-  contenedor.innerHTML =
-    '<h2 class="saludoFinal">¡Gracias por tu compra!</h2><p class="pedido">(Tu pedido ya está esta en preparacion 😁👍)</p>'
+  // recupero valor del carrito de localstorage
+  let totalCarrito = JSON.parse(localStorage.getItem('total'))
+
+  contenedor.innerHTML = `<div class="card">
+  <h3 class="totFinal">Tu total es: $ ${totalCarrito}</h3> 
+ 
+ <p class="calcCuotas"  >¿En cuantas cuotas queres abonar?</p>
+<button class="btnCuota"  id ="pago1"> 1  (10 % de descuento.) </button>
+<button class="btnCuota" id ="pago3"> 3  (10 % de interes.) </button>
+<button class="btnCuota" id ="pago6"> 6  (25 % de interes.)</button>
+  </div>
+ `
+
+  let pago1 = document.getElementById('pago1')
+  let pago3 = document.getElementById('pago3')
+  let pago6 = document.getElementById('pago6')
+
+  pago1.onclick = () => {
+    calculoCuota(totalCarrito, 1)
+  }
+
+  pago3.onclick = () => {
+    calculoCuota(totalCarrito, 3)
+  }
+
+  pago6.onclick = () => {
+    calculoCuota(totalCarrito, 6)
+  }
 }
 
-//continua cod js pero no puedo usar el array carrito no se como..probe con for of, for in, for each. . map() nada sirve para poder usar esos datos....
+function calculoCuota(valorProducto, cantidadCuotas) {
+  // const textoFinCarrito = document.createElement('h2')
+  if (cantidadCuotas == 1) {
+    let valorConInteres = valorProducto * -0.1 + valorProducto
 
-// let precios = []
-// for (let i of carrito) {
-//   precios.push(carrito[i].precio)
-// }
+    contenedor.innerHTML = `<h3 class="totFinal">Tu total con 10 % de descuento es de : $ ${valorConInteres}</h3> 
 
-// console.log(precios)
+ `
+  } else if (cantidadCuotas == 3) {
+    let valorConInteres = valorProducto * 0.1 + valorProducto
 
-// function calculoCuota(valorProducto, cantidadCuotas) {
-//   if (isNaN(valorProducto) || isNaN(cantidadCuotas)) {
-//     alert('solo se aceptan numeros.')
-//   } else if (cantidadCuotas == 1) {
-//     valorCuota = (valorProducto * -0.1 + valorProducto) / cantidadCuotas
-//     alert(
-//       'El total es de : $ ' +
-//         valorProducto +
-//         ' ,con 10 % de descuento en 1 pago es =  $' +
-//         valorCuota.toFixed(2) +
-//         '.',
-//     )
+    let valorCuota = valorConInteres / cantidadCuotas
+    contenedor.innerHTML = `<h3 class="totFinal">Tu total con 10 % de interés es de : $ ${valorConInteres}</h3> 
 
-//     textoFinCarrito.innerText =
-//       'El total es de : $ ' +
-//       valorProducto +
-//       ' ,con 10 % de descuento en 1 pago es =  $' +
-//       valorCuota.toFixed(2) +
-//       '.'
+    <p class="calcCuotas"> En 3 pagos de = $ ${valorCuota.toFixed(2)} </p> `
+  } else if (cantidadCuotas == 6) {
+    let valorConInteres = valorProducto * 0.25 + valorProducto
 
-//     contenedor.prepend(textoFinCarrito)
-//   } else if (cantidadCuotas > 1 && cantidadCuotas <= 3) {
-//     valorCuota = (valorProducto * 0.1 + valorProducto) / cantidadCuotas
-//     ;(textoFinCarrito.innerText =
-//       'Tu total es : $ ' +
-//       valorProducto +
-//       ' , Tu cuota con intereses del 10 % es de $ ' +
-//       valorCuota.toFixed(2) +
-//       '  en ' +
-//       cantidadCuotas +
-//       ' pagos.'),
-//       contenedor.prepend(textoFinCarrito)
-//     alert(
-//       'Tu total es : ' +
-//         valorProducto +
-//         ' pesos, Tu cuota con intereses del 10 % es de ' +
-//         valorCuota.toFixed(2) +
-//         ' pesos en ' +
-//         cantidadCuotas +
-//         ' pagos.',
-//     )
-//   } else if (cantidadCuotas >= 4 && cantidadCuotas <= 6) {
-//     valorCuota = (valorProducto * 0.25 + valorProducto) / cantidadCuotas
-//     ;(textoFinCarrito.innerText =
-//       'Tu total es : ' +
-//       valorProducto +
-//       ' pesos, Tu cuota con intereses del 25 % es de ' +
-//       valorCuota.toFixed(2) +
-//       ' pesos en ' +
-//       cantidadCuotas +
-//       ' pagos.'),
-//       contenedor.prepend(textoFinCarrito)
+    let valorCuota = valorConInteres / cantidadCuotas
+    contenedor.innerHTML = `<h3 class="totFinal">Tu total con 25 % de interés es de : $ ${valorConInteres}</h3> 
 
-//     alert(
-//       'Tu total es : ' +
-//         valorProducto +
-//         ' pesos, Tu cuota con intereses del 25 % es de ' +
-//         valorCuota.toFixed(2) +
-//         ' pesos en ' +
-//         cantidadCuotas +
-//         ' pagos.',
-//     )
-//   } else {
-//     alert('Solo se permiten hasta 6 cuotas.')
-//   }
-// }
+    <p class="calcCuotas"> En 6 pagos de = $ ${valorCuota.toFixed(2)} </p> `
+  }
+  const saludoFinal = document.createElement('p')
+  saludoFinal.innerText = '¡gracias por tu compra!'
+  saludoFinal.classList.add('saludoFin')
+  contenedor.append(saludoFinal)
+}
+
 // //argumento de la func. calculoCuota
-// let v1 = sum
-// let v2 = parseInt(
-//   prompt(
-//     'Tu total es de ' +
-//       sum +
-//       '  pesos, ingresa la cantidad de cuotas a pagar.\n Podes elegir hasta 6 pagos con interes o 10 % de descuento en 1 pago',
-//   ),
-// )
+// let v1 = valorCarrito
+// let v2 = cantidadCuotas
+
 // let calculo = 'y'
 
 // //llamo la funcion.

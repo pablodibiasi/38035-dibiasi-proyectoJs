@@ -189,3 +189,24 @@ input {
   height: 80px;
   text-decoration: none;
 }
+.btnCuota {
+  width: 3 rem;
+  border-radius: 5px;
+  margin: 3px;
+  color: antiquewhite;
+  background-color: #1c8424;
+  border-color: #1c8424;
+  box-shadow: 0 5px 3px rgba(0, 0, 0, 0.3);
+}
+.totFinal {
+  color: chocolate;
+  font-size: 3rem;
+}
+.calcCuotas {
+  color: #2a54c8;
+  font-size: 2rem;
+}
+.saludoFin {
+  font-size: 3rem;
+  color: #fa1212;
+}
