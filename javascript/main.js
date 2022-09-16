@@ -54,7 +54,7 @@ const productos = [
   { id: 1, nombre: 'Estrellas', precio: 1000, img: 'ESTRELLAS.jpeg' },
   { id: 2, nombre: 'Angelitos', precio: 1500, img: 'ANGELITOS.jpeg' },
   { id: 3, nombre: 'Pesebre', precio: 2000, img: 'PESEBRE.jpeg' },
-  { id: 4, nombre: 'Angelita', precio: 2500, img: 'ANGELITA.jpeg' },
+  { id: 4, nombre: 'Angelita', precio: 2500, img: 'angelita.jpeg' },
   { id: 5, nombre: 'Estrellita', precio: 3000, img: 'ESTRELLA.jpeg' },
   { id: 6, nombre: 'Toalla aqua', precio: 3500, img: 'TOALLAAQUA.jpeg' },
   { id: 7, nombre: 'Toalla crudo', precio: 4000, img: 'TOALLACRUDO.jpeg' },
@@ -76,7 +76,7 @@ function crearCards() {
     containerDiv.innerHTML += `<div class="card" >
  
         <h4>${element.nombre}</h4>
-        <img src="../imagenes/${element.img} " alt="">
+        <img src="./imagenes/${element.img} " alt="">
         <p>$${element.precio}</p>
         <button class= "btnProd" id="btn-agregar${element.id}">Agregar al carrito</button>
      </div>`
@@ -122,7 +122,7 @@ function crearCarritoCard() {
     carritoDiv.innerHTML += `
     <div class="card" >
         <h4>${prod.nombre}</h4>
-        <img src="../imagenes/${prod.img} " class="carritoImg" alt="">
+        <img src="./imagenes/${prod.img} " class="carritoImg" alt="">
         <h5>CANTIDAD: ${prod.cantidad}</h5>
         <p>$ ${valorSuma}</p>
         <button class="btnCarrito"  id="btn-borrar${prod.id}">Quitar</button>
