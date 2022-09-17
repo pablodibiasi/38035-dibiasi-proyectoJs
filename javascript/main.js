@@ -54,7 +54,7 @@ const productos = [
   { id: 1, nombre: 'Estrellas', precio: 1000, img: 'ESTRELLAS.jpeg' },
   { id: 2, nombre: 'Angelitos', precio: 1500, img: 'ANGELITOS.jpeg' },
   { id: 3, nombre: 'Pesebre', precio: 2000, img: 'PESEBRE.jpeg' },
-  { id: 4, nombre: 'Angelita', precio: 2500, img: 'angelita.jpeg' },
+  { id: 4, nombre: 'Angelita', precio: 2500, img: 'ANGELITA.jpeg' },
   { id: 5, nombre: 'Estrellita', precio: 3000, img: 'ESTRELLA.jpeg' },
   { id: 6, nombre: 'Toalla aqua', precio: 3500, img: 'TOALLAAQUA.jpeg' },
   { id: 7, nombre: 'Toalla crudo', precio: 4000, img: 'TOALLACRUDO.jpeg' },
