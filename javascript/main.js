@@ -219,31 +219,80 @@ function calculoCuota(valorProducto, cantidadCuotas) {
 
     <p class="calcCuotas"> En 6 pagos de = $ ${valorCuota.toFixed(2)} </p> `
   }
-  const saludoFinal = document.createElement('p')
-  saludoFinal.innerText = '¡gracias por tu compra!'
-  saludoFinal.classList.add('saludoFin')
-  contenedor.append(saludoFinal)
+
+  let ingtarjetas = document.createElement('button')
+
+  ingtarjetas.innerText = 'ingrese datos de tarjeta'
+  ingtarjetas.setAttribute('id', 'datosTarjeta')
+  contenedor.append(ingtarjetas)
+
+  let ingTarjetas = document.getElementById('datosTarjeta')
+  ingTarjetas.addEventListener('click', crearFormTarjetas)
+  let formularioTarjeta = document.createElement('form')
+
+  function crearFormTarjetas() {
+    contenedor.append(formularioTarjeta)
+
+    formularioTarjeta.innerHTML = `<form id="formularioTarjeta action="" method="">
+    <div class="divF nombreTitular">
+        <label for="nombreTitular">Nombre del titular</label>
+        <input type="text" class="form-control" id="titular">
+    </div>
+    <div class="divF direccion">
+    <label for="direccion">Direccion del titular</label>
+    <input type="text" class="form-control" id="direccion">
+</div>
+
+    <div class="divF codigoVer">
+        <label for="codigoVer">Codigo de verificacion (CVV)</label>
+        <input type="text" class="form-control" id="codigoVer">
+    </div>
+    <div class="divF cardNumber">
+        <label for="cardNumber">Numero de tarjeta</label>
+        <input type="text" class="form-control" id="cardNumber">
+    </div>
+    <div class="divF" id="fechaExpiracion">
+        <label>fecha de expiracion</label>
+        <select>
+            <option value="01">Enero</option>
+            <option value="02">Febrero</option>
+            <option value="03">Marzo</option>
+            <option value="04">Abril</option>
+            <option value="05">Mayo</option>
+            <option value="06">Junio</option>
+            <option value="07">Julio</option>
+            <option value="08">Agosto</option>
+            <option value="09">Septiembre</option>
+            <option value="10">Octubre</option>
+            <option value="11">Noviembre</option>
+            <option value="12">Diciembre</option>
+        </select>
+        <select>
+            <option value="16"> 2022</option>
+            <option value="17"> 2023</option>
+            <option value="18"> 2024</option>
+            <option value="19"> 2025</option>
+            <option value="20"> 2026</option>
+            <option value="21"> 2027</option>
+        </select>
+    </div>
+  
+
+    <div class="divF id="tipoTarjeta">
+    <label>seleccione tarjeta</label>
+  
+    <select>
+        <option value="22"> Visa</option>
+        <option value="23"> Mastercard</option>
+        <option value="24"> Amex</option>
+        <option value="25"> Nativa</option>
+        <option value="26"> Naranja</option>
+        
+    </select>
+</div>
+<div class="divF" id="confirmacionBtn">
+        <button type="submit" class="btn btn-default" id="confirm-purchase">Confirmar compra</button>
+        </div>
+</form>`
+  }
 }
-
-// //argumento de la func. calculoCuota
-// let v1 = valorCarrito
-// let v2 = cantidadCuotas
-
-// let calculo = 'y'
-
-// //llamo la funcion.
-// calculoCuota(v1, v2)
-
-// while (calculo == 'y') {
-//   calculo = prompt('Deseas saber el valor con otra cantidad de cuotas? (y/n)')
-//   if (calculo == 'y') {
-//     v1 = sum
-//     v2 = parseInt(
-//       prompt('Tu total es de ' + sum + ' ingresa cantidad de cuotas'),
-//     )
-//     calculoCuota(v1, v2)
-//   } else {
-//     alert('Gracias por usar nuestro calculador de cuotas.')
-//     calculo = 'f'
-//   }
-// }

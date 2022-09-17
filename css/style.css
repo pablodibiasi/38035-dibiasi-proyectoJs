@@ -198,6 +198,14 @@ input {
   border-color: #1c8424;
   box-shadow: 0 5px 3px rgba(0, 0, 0, 0.3);
 }
+#datosTarjeta {
+  border-radius: 5px;
+  margin: 10px;
+  color: antiquewhite;
+  background-color: #e7821e;
+  width: 20em;
+  box-shadow: 0 5px 3px rgba(0, 0, 0, 0.3);
+}
 .totFinal {
   color: chocolate;
   font-size: 3rem;
@@ -209,4 +217,37 @@ input {
 .saludoFin {
   font-size: 3rem;
   color: #fa1212;
+}
+
+.grupo {
+  font-style: oblique;
+  font-weight: bold;
+  margin: 5px;
+}
+#btnSendTarjeta {
+  border-radius: 5px;
+  margin: 10px;
+  color: antiquewhite;
+  background-color: #e7461e;
+  width: 10em;
+  box-shadow: 0 5px 3px rgba(0, 0, 0, 0.3);
+}
+.divF {
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+}
+.btn-default {
+  border-radius: 5px;
+  margin: 10px;
+  color: antiquewhite;
+  background-color: #e7461e;
+  width: 10em;
+  box-shadow: 0 5px 3px rgba(0, 0, 0, 0.3);
+}
+form {
+  width: auto;
+  border: 4px solid chocolate;
+  margin: 10px;
+  padding: 5px;
+  border-radius: 10px;
 }
