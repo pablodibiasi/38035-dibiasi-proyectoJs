@@ -313,7 +313,7 @@ function envioPedido() {
     visitante.value.toUpperCase() +
     `
   <h3 class="saludoFin">¡Gracias por Tu compra!</h3>
-  <h3> El pedido  ya está en Proceso</h3>
+  <h3> El pedido ya está en Proceso</h3>
 
  
 </div>`
