@@ -8,6 +8,19 @@ body {
   /* font-family: 'Permanent Marker', cursive; */
   font-family: 'Atma', cursive;
 }
+.btn-whatsapp {
+  display: block;
+  width: 70px;
+  height: 70px;
+  color: #fff;
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  border-radius: 50%;
+  line-height: 80px;
+  text-align: center;
+  z-index: 999;
+}
 
 .bienvenida {
   margin: 10px;
@@ -17,29 +30,39 @@ body {
   color: rgb(218, 85, 85);
   font-size: 2.5rem;
 }
-.card form {
-  background-color: rgb(27, 254, 179);
+.formRegistro {
+  background-color: aqua;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  margin: 20px;
+  padding: 10px;
+  max-width: 300px;
+  width: 15rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 5px 3px rgba(0, 0, 0, 0.3);
   color: #2a54c8;
   height: 100%;
   display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  padding: 10px;
+
   font-size: 1.2rem;
 }
-form .box {
-  /* width: 100%; */
+.box {
   display: flex;
   flex-direction: column;
   justify-self: center;
 }
 input {
   font-size: 1.2rem;
+  border-radius: 5px;
+  border: 2px solid rgb(7, 87, 15);
 }
 #btnRegistro {
   border-radius: 10px;
   color: aliceblue;
   background-color: #2a54c8;
+  margin: 5px;
 }
 
 .logo {
@@ -77,14 +100,15 @@ input {
 }
 
 .card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin: 20px;
   padding: 10px;
   max-width: 300px;
   width: 15rem;
   border-radius: 0.5rem;
-  -webkit-box-shadow: 21px 18px 8px -23px rgba(114, 114, 115, 1);
-  -moz-box-shadow: 21px 18px 8px -23px rgba(114, 114, 115, 1);
-  box-shadow: 21px 18px 8px -23px rgba(114, 114, 115, 1);
+  box-shadow: 0 5px 3px rgba(0, 0, 0, 0.3);
 }
 
 .card img {
@@ -114,6 +138,12 @@ input {
   margin-left: 20px;
   box-shadow: 0 5px 3px rgba(0, 0, 0, 0.3);
   border-color: aliceblue;
+}
+.btnProd:hover {
+  background-color: #10ae1d;
+}
+.btnProd:active {
+  background-color: #2a54c8;
 }
 #saludo {
   text-align: center;
@@ -145,6 +175,25 @@ input {
   font-size: 2rem;
   color: rgb(25, 113, 25);
 }
+.carVacio {
+  color: #fa1212;
+  font-size: 3rem;
+  font-weight: bold;
+}
+.linkDiv {
+  margin: 5px;
+}
+.linkregeso {
+  text-decoration: none;
+  color: #d5d8e2;
+  font-size: 1.5rem;
+  border-radius: 10px;
+  background-color: rgb(7, 87, 15);
+  margin: 7px;
+}
+.linkregeso:hover {
+  color: rgb(205, 67, 12);
+}
 .btnCarrito {
   display: flex;
   justify-content: center;
@@ -153,6 +202,20 @@ input {
   border-radius: 5px;
   width: 100px;
   background-color: #fa1212;
+  color: antiquewhite;
+  margin: 5px;
+  box-shadow: 0 5px 3px rgba(0, 0, 0, 0.3);
+  border-color: aliceblue;
+}
+
+.btnMasMenos {
+  display: flex;
+  justify-content: center;
+
+  text-align: center;
+  border-radius: 5px;
+  width: 50px;
+  background-color: #1276fa;
   color: antiquewhite;
   margin: 5px;
   box-shadow: 0 5px 3px rgba(0, 0, 0, 0.3);
@@ -169,6 +232,9 @@ input {
   box-shadow: 0 5px 3px rgba(0, 0, 0, 0.3);
   border-color: aliceblue;
   font-size: 1.2rem;
+}
+.btnFinal:hover {
+  background-color: #3f6adf;
 }
 .saludoFinal {
   color: rgb(255, 94, 0);
@@ -191,6 +257,7 @@ input {
 }
 .btnCuota {
   width: 3 rem;
+  height: 2rem;
   border-radius: 5px;
   margin: 3px;
   color: antiquewhite;
@@ -204,7 +271,9 @@ input {
   color: antiquewhite;
   background-color: #e7821e;
   width: 20em;
+  height: 3rem;
   box-shadow: 0 5px 3px rgba(0, 0, 0, 0.3);
+  font-size: 1.5rem;
 }
 .totFinal {
   color: chocolate;
@@ -244,10 +313,23 @@ input {
   width: 10em;
   box-shadow: 0 5px 3px rgba(0, 0, 0, 0.3);
 }
-form {
+.formTarjeta {
   width: auto;
   border: 4px solid chocolate;
   margin: 10px;
   padding: 5px;
   border-radius: 10px;
+}
+/* contacto */
+.linkwas {
+  text-decoration: none;
+  font-size: 3rem;
+  color: aliceblue;
+}
+.contactcontainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  height: 500px;
 }

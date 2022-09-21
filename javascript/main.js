@@ -36,11 +36,9 @@ recuperarDatos(JSON.parse(localStorage.getItem('usuario')))
 
 btn.addEventListener('click', (e) => {
   e.preventDefault()
-  if (checkbox.checked) {
-    guardar('localStorage')
-  } else {
-    guardar('sessionStorage')
-  }
+
+  //operador ternario
+  checkbox.checked ? guardar('localStorage') : guardar('sessionStorage')
 })
 
 //saludo personalizado
@@ -66,19 +64,23 @@ const productos = [
 const containerDiv = document.querySelector('.container')
 const carritoDiv = document.querySelector('.carrito')
 
-//traer elementos del carrito de localstorage si los hubiera o creo un array vacio
+//traer elementos del carrito de localstorage si los hubiera o creo un array vacio con operador OR
 let carrito = JSON.parse(localStorage.getItem('carrito')) || []
 
 //creo tarjetas de los productos
 crearCards()
 function crearCards() {
   productos.forEach((element) => {
+    // uso destructuring...transformo en variables las prop del objeto element.
+    let { nombre, img, precio, id } = element
+
+    //aca se usa sugar syntax += para sumar cards
     containerDiv.innerHTML += `<div class="card" >
  
-        <h4>${element.nombre}</h4>
-        <img src="./imagenes/${element.img} " alt="">
-        <p>$${element.precio}</p>
-        <button class= "btnProd" id="btn-agregar${element.id}">Agregar al carrito</button>
+        <h4>${nombre}</h4>
+        <img src="./imagenes/${img} " alt="">
+        <p>$${precio}</p>
+        <button class= "btnProd" id="btn-agregar${id}">Agregar al carrito</button>
      </div>`
   })
 
@@ -99,11 +101,13 @@ function FuncionBoton() {
 
 function agregarAlCarrito(producto) {
   let existe = carrito.some((prod) => prod.id === producto.id)
+
   if (existe === false) {
     producto.cantidad = 1
     carrito.push(producto)
   } else {
     let prodFind = carrito.find((prod) => prod.id === producto.id)
+    //sugar syntax ++.
     prodFind.cantidad++
   }
 
@@ -114,34 +118,48 @@ console.log(carrito)
 // funcion crear carrito
 
 function crearCarritoCard() {
+  //vacío el contenedor carrito.
   carritoDiv.innerHTML = ''
+
+  //  con operador AND ,si esta vacio, imprimo carrito vacio.
+  carrito.length === 0 &&
+    (carritoDiv.innerHTML = '<h2 class="carVacio">Tu carrito está vacio</h2>')
 
   carrito.forEach((prod) => {
     let valorSuma = `${prod.precio * prod.cantidad}`
+    //destructuring transformo en variables las prop del objeto prod.
+    let { nombre, img, cantidad, id } = prod
 
+    //sugar syntax += .
     carritoDiv.innerHTML += `
     <div class="card" >
-        <h4>${prod.nombre}</h4>
-        <img src="./imagenes/${prod.img} " class="carritoImg" alt="">
-        <h5>CANTIDAD: ${prod.cantidad}</h5>
-        <p>$ ${valorSuma}</p>
-        <button class="btnCarrito"  id="btn-borrar${prod.id}">Quitar</button>
-    
-     
+        <h4>${nombre}</h4>
+        <img src="./imagenes/${img} " class="carritoImg" alt="">
+        <h5>CANTIDAD: ${cantidad}</h5>
+        <button class="btnMasMenos" id="btn-sumarUnoSolo${id}">+ 1</button>
+        <button class="btnMasMenos" id="btn-borrarUnoSolo${id}">- 1</button>
+        
+        <h4> $ ${valorSuma}</h4>
+        <button class="btnCarrito"  id="btn-borrar${id}">Quitar todo</button>
+        
         </div>`
   })
 
-  // aca saco el total e precio del carrito con metodo .reduce
+  // aca saco el total del precio del carrito con metodo .reduce
   let total = carrito.reduce((acc, el) => acc + el.precio * el.cantidad, 0)
-  console.log(total)
+
+  // console.log(total)
   //agregar a storage
   localStorage.setItem('carrito', JSON.stringify(carrito))
   localStorage.setItem('total', JSON.stringify(total))
   borrarProducto()
+  borrarProducto2()
+  sumarProducto()
 }
 
 // termina funcion crearCarrito
 
+//funcion restar product
 // funcion borrar producto
 
 function borrarProducto() {
@@ -151,11 +169,34 @@ function borrarProducto() {
       .addEventListener('click', () => {
         let indice = carrito.findIndex((element) => element.id === producto.id)
         carrito.splice(indice, 1)
+
         crearCarritoCard()
       })
   })
 }
+function borrarProducto2() {
+  carrito.forEach((producto) => {
+    document
+      .querySelector(`#btn-borrarUnoSolo${producto.id}`)
+      .addEventListener('click', () => {
+        //operador ternario
+        producto.cantidad >= 2 ? producto.cantidad-- : (producto.cantidad = 0)
 
+        crearCarritoCard()
+      })
+  })
+}
+function sumarProducto() {
+  carrito.forEach((producto) => {
+    document
+      .querySelector(`#btn-sumarUnoSolo${producto.id}`)
+      .addEventListener('click', () => {
+        producto.cantidad++
+
+        crearCarritoCard()
+      })
+  })
+}
 crearCarritoCard()
 
 const botonFinal = document.createElement('button')
@@ -168,8 +209,15 @@ botonFinal.addEventListener('click', finalizarCompra)
 function finalizarCompra() {
   // recupero valor del carrito de localstorage
   let totalCarrito = JSON.parse(localStorage.getItem('total'))
-
-  contenedor.innerHTML = `<div class="card">
+  // if carrito vacio .
+  if (totalCarrito == 0) {
+    contenedor.innerHTML = `<div class="card">
+    <h3 class="carVacio">no elegiste ningún producto</h3>
+    <a class="linkregeso" href="./index.html">Regresar al inicio</a>
+     </div>`
+    //si el carrito no esta vacio.
+  } else {
+    contenedor.innerHTML = `<div class="card">
   <h3 class="totFinal">Tu total es: $ ${totalCarrito}</h3> 
  
  <p class="calcCuotas"  >¿En cuantas cuotas queres abonar?</p>
@@ -179,25 +227,24 @@ function finalizarCompra() {
   </div>
  `
 
-  let pago1 = document.getElementById('pago1')
-  let pago3 = document.getElementById('pago3')
-  let pago6 = document.getElementById('pago6')
+    let pago1 = document.getElementById('pago1')
+    let pago3 = document.getElementById('pago3')
+    let pago6 = document.getElementById('pago6')
 
-  pago1.onclick = () => {
-    calculoCuota(totalCarrito, 1)
-  }
+    pago1.onclick = () => {
+      calculoCuota(totalCarrito, 1)
+    }
 
-  pago3.onclick = () => {
-    calculoCuota(totalCarrito, 3)
-  }
+    pago3.onclick = () => {
+      calculoCuota(totalCarrito, 3)
+    }
 
-  pago6.onclick = () => {
-    calculoCuota(totalCarrito, 6)
+    pago6.onclick = () => {
+      calculoCuota(totalCarrito, 6)
+    }
   }
 }
-
 function calculoCuota(valorProducto, cantidadCuotas) {
-  // const textoFinCarrito = document.createElement('h2')
   if (cantidadCuotas == 1) {
     let valorConInteres = valorProducto * -0.1 + valorProducto
 
@@ -222,7 +269,7 @@ function calculoCuota(valorProducto, cantidadCuotas) {
 
   let ingtarjetas = document.createElement('button')
 
-  ingtarjetas.innerText = 'ingrese datos de tarjeta'
+  ingtarjetas.innerText = 'Ingresa los datos de tu tarjeta'
   ingtarjetas.setAttribute('id', 'datosTarjeta')
   contenedor.append(ingtarjetas)
 
@@ -235,7 +282,7 @@ function crearFormTarjetas() {
 
   contenedor.append(formularioTarjeta)
 
-  formularioTarjeta.innerHTML = `<form id="formularioTarjeta action="" method="">
+  formularioTarjeta.innerHTML = `<form class="formTarjeta"id="formularioTarjeta action="" method="">
   <div class="divF nombreTitular">
       <label for="nombreTitular">Nombre del titular</label>
       <input type="text" class="form-control" id="titular">
@@ -304,7 +351,7 @@ function crearFormTarjetas() {
   let confirmarCompra = document.getElementById('confirm-purchase')
   confirmarCompra.addEventListener('click', envioPedido)
 }
-
+//saludo final con fecha del pedido.
 function envioPedido() {
   contenedor.innerHTML = ''
 
@@ -313,8 +360,9 @@ function envioPedido() {
     visitante.value.toUpperCase() +
     `
   <h3 class="saludoFin">¡Gracias por Tu compra!</h3>
-  <h3> El pedido ya está en Proceso</h3>
+  <h3> El pedido ya está en Proceso</h3>` +
+    new Date() +
+    `<div class="linkDiv"> <a class="linkregeso" href="./index.html">Regresar al inicio</a></div></div>`
 
- 
-</div>`
+  localStorage.setItem('carrito', JSON.stringify(''))
 }
