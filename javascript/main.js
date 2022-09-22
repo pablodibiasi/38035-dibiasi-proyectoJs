@@ -36,7 +36,23 @@ recuperarDatos(JSON.parse(localStorage.getItem('usuario')))
 
 btn.addEventListener('click', (e) => {
   e.preventDefault()
+  // sweetalert
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer)
+      toast.addEventListener('mouseleave', Swal.resumeTimer)
+    },
+  })
 
+  Toast.fire({
+    icon: 'success',
+    title: ' Tu registro ha sido exitoso',
+  })
   //operador ternario
   checkbox.checked ? guardar('localStorage') : guardar('sessionStorage')
 })
@@ -49,9 +65,10 @@ visitante.onchange = () => {
 }
 //productos en venta
 const productos = [
-  { id: 1, nombre: 'Estrellas', precio: 1000, img: 'ESTRELLAS.jpeg' },
+  { id: 1, nombre: 'Pesebre', precio: 2000, img: 'PESEBRE.jpeg' },
   { id: 2, nombre: 'Angelitos', precio: 1500, img: 'ANGELITOS.jpeg' },
-  { id: 3, nombre: 'Pesebre', precio: 2000, img: 'PESEBRE.jpeg' },
+  { id: 3, nombre: 'Estrellas', precio: 1000, img: 'ESTRELLAS.jpeg' },
+
   { id: 4, nombre: 'Angelita', precio: 2500, img: 'ANGELITA.jpeg' },
   { id: 5, nombre: 'Estrellita', precio: 3000, img: 'ESTRELLA.jpeg' },
   { id: 6, nombre: 'Toalla aqua', precio: 3500, img: 'TOALLAAQUA.jpeg' },
@@ -209,12 +226,13 @@ botonFinal.addEventListener('click', finalizarCompra)
 function finalizarCompra() {
   // recupero valor del carrito de localstorage
   let totalCarrito = JSON.parse(localStorage.getItem('total'))
-  // if carrito vacio .
+  // si el carrito  esta vacio .
+
   if (totalCarrito == 0) {
-    contenedor.innerHTML = `<div class="card">
-    <h3 class="carVacio">no elegiste ningún producto</h3>
-    <a class="linkregeso" href="./index.html">Regresar al inicio</a>
-     </div>`
+    // sweet alert
+
+    Swal.fire('¡Tu carrito esta vacio!', 'Selecciona algún producto', 'warning')
+
     //si el carrito no esta vacio.
   } else {
     contenedor.innerHTML = `<div class="card">
