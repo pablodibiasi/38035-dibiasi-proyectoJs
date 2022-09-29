@@ -63,31 +63,48 @@ visitante.onchange = () => {
   saludo.innerText =
     'Bienvenido/a ' + visitante.value.toUpperCase() + ' a Reina Victoria'
 }
-//productos en venta
-const productos = [
-  { id: 1, nombre: 'Pesebre', precio: 2000, img: 'PESEBRE.jpeg' },
-  { id: 2, nombre: 'Angelitos', precio: 1500, img: 'ANGELITOS.jpeg' },
-  { id: 3, nombre: 'Estrellas', precio: 1000, img: 'ESTRELLAS.jpeg' },
+//productos en venta estan en data.json...
+// const productos = [
+//   { id: 1, nombre: 'Pesebre', precio: 2000, img: 'PESEBRE.jpeg' },
+//   { id: 2, nombre: 'Angelitos', precio: 1500, img: 'ANGELITOS.jpeg' },
+//   { id: 3, nombre: 'Estrellas', precio: 1000, img: 'ESTRELLAS.jpeg' },
 
-  { id: 4, nombre: 'Angelita', precio: 2500, img: 'ANGELITA.jpeg' },
-  { id: 5, nombre: 'Estrellita', precio: 3000, img: 'ESTRELLA.jpeg' },
-  { id: 6, nombre: 'Toalla aqua', precio: 3500, img: 'TOALLAAQUA.jpeg' },
-  { id: 7, nombre: 'Toalla crudo', precio: 4000, img: 'TOALLACRUDO.jpeg' },
-  { id: 8, nombre: 'Toalla de mano', precio: 4500, img: 'TOALLADEMANO.jpeg' },
-  { id: 9, nombre: 'Toalla negra', precio: 5000, img: 'TOALLANEGRA.jpeg' },
-]
-// console.log(productos)
+//   { id: 4, nombre: 'Angelita', precio: 2500, img: 'ANGELITA.jpeg' },
+//   { id: 5, nombre: 'Estrellita', precio: 3000, img: 'ESTRELLA.jpeg' },
+//   { id: 6, nombre: 'Toalla aqua', precio: 3500, img: 'TOALLAAQUA.jpeg' },
+//   { id: 7, nombre: 'Toalla crudo', precio: 4000, img: 'TOALLACRUDO.jpeg' },
+//   { id: 8, nombre: 'Toalla de mano', precio: 4500, img: 'TOALLADEMANO.jpeg' },
+//   { id: 9, nombre: 'Toalla negra', precio: 5000, img: 'TOALLANEGRA.jpeg' }];
 
 const containerDiv = document.querySelector('.container')
 const carritoDiv = document.querySelector('.carrito')
 
 //traer elementos del carrito de localstorage si los hubiera o creo un array vacio con operador OR
+
 let carrito = JSON.parse(localStorage.getItem('carrito')) || []
 
-//creo tarjetas de los productos
-crearCards()
-function crearCards() {
-  productos.forEach((element) => {
+// se creo el array productos en data.json para acceder con fetch y .then anidados.
+// fetch('./javascript/data.json')
+//   .then((resp) => resp.json())
+//   .then((data) => {
+//     console.log(data)
+//     crearCards(data)
+//   })
+
+// uso la otra forma con async y await , creo una const. q es una fn flecha q me trae los datos del data.json
+const respuesta = async () => {
+  const response = await fetch('./javascript/data.json')
+  // la rta la pongo en otra const data
+  const data = await response.json()
+  // llamo a crearcard con parametro data
+  crearCards(data)
+}
+// hay q llamar a la funcion respuesta.
+respuesta()
+
+//  funcion para crear tarjeta de productos - crearCards()
+function crearCards(array) {
+  array.forEach((element) => {
     // uso destructuring...transformo en variables las prop del objeto element.
     let { nombre, img, precio, id } = element
 
@@ -101,11 +118,11 @@ function crearCards() {
      </div>`
   })
 
-  FuncionBoton()
+  FuncionBoton(array)
 }
 
-function FuncionBoton() {
-  productos.forEach((producto) => {
+function FuncionBoton(arr) {
+  arr.forEach((producto) => {
     document
       .querySelector(`#btn-agregar${producto.id}`)
       .addEventListener('click', () => {
@@ -372,7 +389,7 @@ function crearFormTarjetas() {
 //saludo final con fecha del pedido.
 function envioPedido() {
   contenedor.innerHTML = ''
-
+  Swal.fire('Excelente', '!Tu pago fue aceptado!', 'success')
   contenedor.innerHTML =
     `<div>` +
     visitante.value.toUpperCase() +
