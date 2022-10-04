@@ -5,9 +5,12 @@
 }
 body {
   background-color: rgb(195, 199, 153);
-  /* font-family: 'Permanent Marker', cursive; */
+
   font-family: 'Atma', cursive;
 }
+
+/* css index */
+
 .btn-whatsapp {
   display: block;
   width: 70px;
@@ -25,11 +28,13 @@ body {
 .bienvenida {
   margin: 10px;
 }
+
 #saludo {
   font-weight: bold;
   color: rgb(218, 85, 85);
   font-size: 2.5rem;
 }
+
 .formRegistro {
   background-color: rgb(51, 133, 77);
   display: flex;
@@ -45,9 +50,9 @@ body {
   color: #b2dfbf;
   height: 100%;
   display: flex;
-
   font-size: 1.2rem;
 }
+
 .box {
   display: flex;
   flex-direction: column;
@@ -58,6 +63,7 @@ input {
   border-radius: 5px;
   border: 2px solid rgb(7, 87, 15);
 }
+
 #btnRegistro {
   border-radius: 10px;
   color: aliceblue;
@@ -69,10 +75,12 @@ input {
   margin: 50px 10px;
   text-align: center;
 }
+
 .logo img {
   border-radius: 10px;
   width: 50%;
 }
+
 .titulo_productos {
   color: rgb(231, 77, 77);
   text-align: center;
@@ -95,6 +103,7 @@ input {
   font-weight: bolder;
   margin-bottom: 5px;
 }
+
 .product p {
   text-align: center;
 }
@@ -117,17 +126,20 @@ input {
   object-fit: contain;
   border-radius: 0.5rem;
 }
+
 .carritoImg {
   width: 100%;
   height: 150px;
   object-fit: contain;
   border-radius: 0.5rem;
 }
+
 .card p {
   color: crimson;
   text-align: center;
   font-weight: bold;
 }
+
 .btnProd {
   text-align: center;
   border-radius: 5px;
@@ -139,12 +151,15 @@ input {
   box-shadow: 0 5px 3px rgba(0, 0, 0, 0.3);
   border-color: aliceblue;
 }
+
 .btnProd:hover {
   background-color: #10ae1d;
 }
+
 .btnProd:active {
   background-color: #2a54c8;
 }
+
 #saludo {
   text-align: center;
 }
@@ -155,15 +170,16 @@ input {
   justify-content: center;
   align-items: center;
   background-color: rgb(51, 133, 77);
-
   border: 4px solid rgb(7, 87, 15);
   width: 80%;
   text-align: center;
   border-radius: 10px;
 }
+
 #contenedor p {
   font-weight: bold;
 }
+
 .carrito {
   display: flex;
   flex-direction: row;
@@ -195,10 +211,10 @@ input {
   color: rgb(241, 231, 227);
   background-color: rgb(211, 45, 45);
 }
+
 .btnCarrito {
   display: flex;
   justify-content: center;
-
   text-align: center;
   border-radius: 5px;
   width: 100px;
@@ -212,7 +228,6 @@ input {
 .btnMasMenos {
   display: flex;
   justify-content: center;
-
   text-align: center;
   border-radius: 5px;
   width: 50px;
@@ -222,6 +237,7 @@ input {
   box-shadow: 0 5px 3px rgba(0, 0, 0, 0.3);
   border-color: aliceblue;
 }
+
 .btnFinal {
   text-align: center;
   border-radius: 5px;
@@ -237,25 +253,30 @@ input {
 .btnFinal:hover {
   background-color: rgb(9, 128, 21);
 }
+
 .saludoFinal {
   color: rgb(255, 94, 0);
   font-weight: bold;
 }
+
 .pedido {
   font-size: 1.5rem;
   font-weight: bold;
   color: darkslateblue;
 }
+
 #carritoCompras {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
+
 .icwass {
   width: 80px;
   height: 80px;
   text-decoration: none;
 }
+
 .btnCuota {
   width: 3 rem;
   height: 2rem;
@@ -324,24 +345,26 @@ input {
   padding: 5px;
   border-radius: 10px;
 }
-/* contacto */
+
+/* contacto css */
 .linkwas {
   text-decoration: none;
-  /* font-size: 3rem; */
   color: black;
 }
+
 .contactcontainer {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-
   height: 500px;
 }
+
 .iconoIg {
   width: 60px;
   height: 60px;
 }
+
 .logoFb {
   width: 70px;
   height: 70px;

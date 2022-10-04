@@ -1,12 +1,12 @@
 //registro de ususario/storage
 
-const btn = document.getElementById('btnRegistro'),
+const btnRegistro = document.getElementById('btnRegistro'),
   checkbox = document.getElementById('checkbox'),
   email = document.getElementById('email'),
   password = document.getElementById('password'),
   p = document.querySelector('.mensaje'),
   visitante = document.getElementById('nombre')
-btn.value = 'Registrar'
+btnRegistro.value = 'Registrar'
 
 function guardar(valor) {
   let usuario = {
@@ -34,15 +34,15 @@ function recuperarDatos(datos) {
 
 recuperarDatos(JSON.parse(localStorage.getItem('usuario')))
 
-btn.addEventListener('click', (e) => {
+btnRegistro.addEventListener('click', (e) => {
   e.preventDefault()
   // sweetalert
   const Toast = Swal.mixin({
     toast: true,
     position: 'top',
     showConfirmButton: false,
-    timer: 3000,
-    timerProgressBar: true,
+    timer: 1500,
+    timerProgressBar: false,
     didOpen: (toast) => {
       toast.addEventListener('mouseenter', Swal.stopTimer)
       toast.addEventListener('mouseleave', Swal.resumeTimer)
@@ -63,18 +63,6 @@ visitante.onchange = () => {
   saludo.innerText =
     'Bienvenido/a ' + visitante.value.toUpperCase() + ' a Reina Victoria'
 }
-//productos en venta estan en data.json...
-// const productos = [
-//   { id: 1, nombre: 'Pesebre', precio: 2000, img: 'PESEBRE.jpeg' },
-//   { id: 2, nombre: 'Angelitos', precio: 1500, img: 'ANGELITOS.jpeg' },
-//   { id: 3, nombre: 'Estrellas', precio: 1000, img: 'ESTRELLAS.jpeg' },
-
-//   { id: 4, nombre: 'Angelita', precio: 2500, img: 'ANGELITA.jpeg' },
-//   { id: 5, nombre: 'Estrellita', precio: 3000, img: 'ESTRELLA.jpeg' },
-//   { id: 6, nombre: 'Toalla aqua', precio: 3500, img: 'TOALLAAQUA.jpeg' },
-//   { id: 7, nombre: 'Toalla crudo', precio: 4000, img: 'TOALLACRUDO.jpeg' },
-//   { id: 8, nombre: 'Toalla de mano', precio: 4500, img: 'TOALLADEMANO.jpeg' },
-//   { id: 9, nombre: 'Toalla negra', precio: 5000, img: 'TOALLANEGRA.jpeg' }];
 
 const containerDiv = document.querySelector('.container')
 const carritoDiv = document.querySelector('.carrito')
@@ -83,15 +71,7 @@ const carritoDiv = document.querySelector('.carrito')
 
 let carrito = JSON.parse(localStorage.getItem('carrito')) || []
 
-// se creo el array productos en data.json para acceder con fetch y .then anidados.
-// fetch('./javascript/data.json')
-//   .then((resp) => resp.json())
-//   .then((data) => {
-//     console.log(data)
-//     crearCards(data)
-//   })
-
-// uso la otra forma con async y await , creo una const. q es una fn flecha q me trae los datos del data.json
+// con async y await , creo una const. q es una fn flecha q me trae los datos del data.json
 const respuesta = async () => {
   const response = await fetch('./javascript/data.json')
   // la rta la pongo en otra const data
@@ -99,16 +79,16 @@ const respuesta = async () => {
   // llamo a crearcard con parametro data
   crearCards(data)
 }
-// hay q llamar a la funcion respuesta.
+// llamo a la funcion respuesta.
 respuesta()
 
 //  funcion para crear tarjeta de productos - crearCards()
 function crearCards(array) {
   array.forEach((element) => {
-    // uso destructuring...transformo en variables las prop del objeto element.
+    //  destructuring...transformo en variables las prop del objeto element.
     let { nombre, img, precio, id } = element
 
-    //aca se usa sugar syntax += para sumar cards
+    //sugar syntax += para sumar cards
     containerDiv.innerHTML += `<div class="card" >
  
         <h4>${nombre}</h4>
@@ -179,11 +159,10 @@ function crearCarritoCard() {
         </div>`
   })
 
-  // aca saco el total del precio del carrito con metodo .reduce
+  //  saco el total del precio del carrito con metodo .reduce
   let total = carrito.reduce((acc, el) => acc + el.precio * el.cantidad, 0)
 
-  // console.log(total)
-  //agregar a storage
+  //agrego a storage
   localStorage.setItem('carrito', JSON.stringify(carrito))
   localStorage.setItem('total', JSON.stringify(total))
   borrarProducto()
@@ -191,9 +170,6 @@ function crearCarritoCard() {
   sumarProducto()
 }
 
-// termina funcion crearCarrito
-
-//funcion restar product
 // funcion borrar producto
 
 function borrarProducto() {
@@ -249,8 +225,6 @@ function finalizarCompra() {
     // sweet alert
 
     Swal.fire('¡Tu carrito esta vacio!', 'Selecciona algún producto', 'warning')
-
-    //si el carrito no esta vacio.
   } else {
     contenedor.innerHTML = `<div class="card">
   <h3 class="totFinal">Tu total es: $ ${totalCarrito}</h3> 
@@ -313,27 +287,28 @@ function calculoCuota(valorProducto, cantidadCuotas) {
 }
 
 function crearFormTarjetas() {
+  contenedor.innerHTML = ''
   let formularioTarjeta = document.createElement('form')
 
   contenedor.append(formularioTarjeta)
 
-  formularioTarjeta.innerHTML = `<form class="formTarjeta"id="formularioTarjeta action="" method="">
-  <div class="divF nombreTitular">
+  formularioTarjeta.innerHTML = `<form class="formTarjeta"id="formPago" action="" method="">
+  <div class="divF" id="nombreTitular">
       <label for="nombreTitular">Nombre del titular</label>
-      <input type="text" class="form-control" id="titular">
+      <input type="text" class="form-control"placeholder="Nombre como figura en la tarjeta" id="titular"required/>
   </div>
-  <div class="divF direccion">
+  <div class="divF" id="direccion">
   <label for="direccion">Direccion del titular</label>
-  <input type="text" class="form-control" id="direccion">
+  <input type="text" class="form-control" placeholder="Direccion del resumen de tu tarjeta"id="direccion" required>
 </div>
 
-  <div class="divF codigoVer">
+  <div class="divF" id="codigoVer">
       <label for="codigoVer">Codigo de verificacion (CVV)</label>
-      <input type="text" class="form-control" id="codigoVer">
+      <input type="text" class="form-control" placeholder="xxx"id="codigoVer"required>
   </div>
-  <div class="divF cardNumber">
+  <div class="divF" id="cardNumber">
       <label for="cardNumber">Numero de tarjeta</label>
-      <input type="text" class="form-control" id="cardNumber">
+      <input type="text" class="form-control"placeholder="xxxx - xxxx - xxxx - xxxx" id="cardNumber"required>
   </div>
   <div class="divF" id="fechaExpiracion">
       <label>fecha de expiracion</label>
@@ -362,7 +337,7 @@ function crearFormTarjetas() {
   </div>
 
 
-  <div class="divF id="tipoTarjeta">
+  <div class="divF" id="tipoTarjeta">
   <label>seleccione tarjeta</label>
 
   <select>
@@ -374,28 +349,33 @@ function crearFormTarjetas() {
       
   </select>
 </div>
-<div class="divF id="dirEntrega">
+<div class="divF" id="dirEntrega">
 <label for="dirEntrega">Direccion de entrega</label>
-<input type="text" class="form-control" id="inputEntrega">
+<input type="text" class="form-control" placeholder="Direccion a donde queres que llegue el pedido "id="inputEntrega"required>
 </div>
 <div class="divF" id="confirmacionBtn">
-      <button type="button" class="btn btn-default" id="confirm-purchase">Confirmar compra</button>
-      </div>
+       <button type="button" class="btn btn-default"id="confirm-purchase">Confirmar compra</button>  </div>
+
+
+    
 </form>`
 
   let confirmarCompra = document.getElementById('confirm-purchase')
   confirmarCompra.addEventListener('click', envioPedido)
 }
-//saludo final con fecha del pedido.
+
 function envioPedido() {
   contenedor.innerHTML = ''
-  Swal.fire('Excelente', '!Tu pago fue aceptado!', 'success')
+  Swal.fire(
+    visitante.value.toUpperCase(),
+    '!Tu pago fue aceptado!',
+
+    'success',
+  )
   contenedor.innerHTML =
-    `<div>` +
-    visitante.value.toUpperCase() +
-    `
+    `<div> 
   <h3 class="saludoFin">¡Gracias por Tu compra!</h3>
-  <h3> El pedido ya está en Proceso</h3>` +
+  <h3> El pedido está siendo procesado</h3>` +
     new Date() +
     `<div class="linkDiv"> <a class="linkregeso" href="./index.html">Regresar al inicio</a></div></div>`
 
